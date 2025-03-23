@@ -1,16 +1,24 @@
-<?php
-include 'db.php';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $role = $_POST['role'];
-
-    $sql = "INSERT INTO users (username, password, role) VALUES ('$username', '$password', '$role')";
-    if ($conn->query($sql) === TRUE) {
-        echo "Signup successful. <a href='login.html'>Login</a>";
-    } else {
-        echo "Error: " . $conn->error;
-    }
-}
-?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Signup</h2>
+  <form method="post" action="">
+    <label>Name</label>
+    <input type="text" name="name" required>
+    
+    <label>Email</label>
+    <input type="email" name="email" required>
+    
+    <label>Password</label>
+    <input type="password" name="password" required>
+    
+    <button type="submit">Signup</button>
+  </form>
+</div>
+</body>
+</html>
