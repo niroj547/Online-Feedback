@@ -1,0 +1,16 @@
+th, td{
+    font-size: 1rem;
+    
+}
+
+table{
+    text-align: center;
+}
+
+form select{
+    font-size: 1em;
+}
+
+p{
+    text-align: center;
+}
