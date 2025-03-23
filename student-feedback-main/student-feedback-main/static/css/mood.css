@@ -1,0 +1,70 @@
+/* Hide radio button */
+input[type="radio"],input[type="checkbox"]{
+display: none;
+}
+
+.feedmoji:active{
+    font-size:20px;
+}
+
+/* Show that current radio button is selected */
+input[type="radio"]:checked + label{
+   padding: 10px;
+   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+   border-radius: 8px;
+   /* border: 4px dashed #0074D9; */
+}
+
+
+
+input[type="text"],input[type="password"],input[type="checkbox"],input[type="time"],select,input[type="number"]{
+    padding: 10px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.card {
+    padding: 10px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 7px 20px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+label{
+    text-align: center;
+
+}
+
+#emoji{
+    font-size:40px;
+}
+
+#face_row{
+    margin:11px;
+}
+
+#emojifield{
+    font-size:30px;
+    border:none;
+    margin:11px;
+}
+
+#emojiaction{
+    font-size:40px;
+    padding: 5px;
+}
+
+#feedback-form p{
+    /* background-color: rgba(226, 228, 241, 0.836); */
+    border-radius: 5px;
+    color:white;
+}
+
+
+.form-check{
+    text-align: center;
+    padding-left: 1.5rem;
+}
+
+#feedback_button{
+    font-size:20px;
+}
