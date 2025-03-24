@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Mar 23, 2025 at 03:25 PM
+-- Generation Time: Mar 24, 2025 at 02:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -86,6 +86,59 @@ CREATE TABLE `lecturer` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `id` int(11) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `student_id` varchar(50) NOT NULL,
+  `academic_year` varchar(20) DEFAULT NULL,
+  `semester` varchar(10) DEFAULT NULL,
+  `section` varchar(20) DEFAULT NULL,
+  `program` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `students`
+--
+
+INSERT INTO `students` (`id`, `full_name`, `email`, `password`, `student_id`, `academic_year`, `semester`, `section`, `program`) VALUES
+(30, 'AAKANSHA ACHARYA', 'aakansha.acharya@l5cg22.edu', 'student123', 'L5CG22-01', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(31, 'AARUSHI SHARMA', 'aarushi.sharma@l5cg22.edu', 'student123', 'L5CG22-02', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(32, 'ANUP MAHARJAN', 'anup.maharjan@l5cg22.edu', 'student123', 'L5CG22-03', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(33, 'BIBEK KARKI', 'bibek.karki@l5cg22.edu', 'student123', 'L5CG22-04', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(34, 'BINUJA SUBEDI', 'binuja.subedi@l5cg22.edu', 'student123', 'L5CG22-05', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(35, 'BRISHIKA GHALAN', 'brishika.ghalan@l5cg22.edu', 'student123', 'L5CG22-06', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(36, 'CHUJAN TAMANG', 'chujan.tamang@l5cg22.edu', 'student123', 'L5CG22-07', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(37, 'DUBKSHEN TAMANG', 'dubkshen.tamang@l5cg22.edu', 'student123', 'L5CG22-08', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(38, 'KRISHIKA KHADKA', 'krishika.khadka@l5cg22.edu', 'student123', 'L5CG22-09', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(39, 'NALINA RAI', 'nalina.rai@l5cg22.edu', 'student123', 'L5CG22-10', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(40, 'NAMUNA REGMI', 'namuna.regmi@l5cg22.edu', 'student123', 'L5CG22-11', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(41, 'NIROJ KHATRI', 'niroj.khatri@l5cg22.edu', 'student123', 'L5CG22-12', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(42, 'PEMA GYALGEN TAMANG', 'pema.tamang@l5cg22.edu', 'student123', 'L5CG22-13', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(43, 'PHERISH KHYAJU', 'pherish.khyaju@l5cg22.edu', 'student123', 'L5CG22-14', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(44, 'PRABIN CHAUDHARY', 'prabin.chaudhary@l5cg22.edu', 'student123', 'L5CG22-15', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(45, 'PRASHANSA HAMAL', 'prashansa.hamal@l5cg22.edu', 'student123', 'L5CG22-16', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(46, 'PRASHNA PRAJAPATI', 'prashna.prajapati@l5cg22.edu', 'student123', 'L5CG22-17', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(47, 'PRASHRAYA CHALISE', 'prashraya.chalise@l5cg22.edu', 'student123', 'L5CG22-18', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(48, 'PUJA RAI', 'puja.rai@l5cg22.edu', 'student123', 'L5CG22-19', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(49, 'RAJAN RAJ SAH', 'rajan.sah@l5cg22.edu', 'student123', 'L5CG22-20', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(50, 'RUBINA CHHAHARI', 'rubina.chhahari@l5cg22.edu', 'student123', 'L5CG22-21', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(51, 'SAKSHYAM SING BHANDARI', 'sakshyam.bhandari@l5cg22.edu', 'student123', 'L5CG22-22', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(52, 'SAMIR GURUNG', 'samir.gurung@l5cg22.edu', 'student123', 'L5CG22-23', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(53, 'SARANA SHAKYA', 'sarana.shakya@l5cg22.edu', 'student123', 'L5CG22-24', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(54, 'SIMRAN SHRESTHA', 'simran.shrestha@l5cg22.edu', 'student123', 'L5CG22-25', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(55, 'SUSHMA BASNET', 'sushma.basnet@l5cg22.edu', 'student123', 'L5CG22-26', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(56, 'SWEEKRITI DIWAKAR', 'sweekriti.diwakar@l5cg22.edu', 'student123', 'L5CG22-27', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(57, 'SWETA THAPA MAGAR', 'sweta.thapa@l5cg22.edu', 'student123', 'L5CG22-28', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(58, 'UGESH KC', 'ugesh.kc@l5cg22.edu', 'student123', 'L5CG22-29', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tutor`
 --
 
@@ -126,6 +179,14 @@ ALTER TABLE `lecturer`
   ADD KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `student_id` (`student_id`);
+
+--
 -- Indexes for table `tutor`
 --
 ALTER TABLE `tutor`
@@ -146,7 +207,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `feedback`
@@ -159,6 +220,12 @@ ALTER TABLE `feedback`
 --
 ALTER TABLE `lecturer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `tutor`
