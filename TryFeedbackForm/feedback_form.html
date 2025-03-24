@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Feedback Form</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('background.jpg'); /* Replace with your image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 15px;
+      width: 500px;
+    }
+
+    .form-container h1 {
+      margin-bottom: 5px;
+      font-size: 28px;
+    }
+
+    .form-container p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin: 12px 0;
+    }
+
+    .form-group label {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="date"] {
+      padding: 8px 10px;
+      border: none;
+      border-radius: 8px;
+      background-color: #d8ccc8;
+      color: #333;
+    }
+
+    .form-group input[type="checkbox"] {
+      transform: scale(1.4);
+      margin-left: 5px;
+    }
+
+    .submit-btn {
+      display: block;
+      margin: 30px auto 0;
+      padding: 12px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: #d8ccc8;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: black;
+    }
+
+    .submit-btn:hover {
+      background-color: #c2b2af;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Student Feedback Form</h1>
+    <p>Fill the feedback form so that we can make our teaching better</p>
+    <form name="feedbackForm" action="submit_feedback.php" method="post" onsubmit="return validateForm()">
+      
+      <div class="form-group">
+        <label for="studentName">Your Name</label>
+        <input type="text" name="studentName" id="studentName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="academicYear">Academic Year</label>
+        <input type="text" name="academicYear" id="academicYear" required>
+      </div>
+
+      <div class="form-group">
+        <label for="semester">Semester</label>
+        <input type="text" name="semester" id="semester" required>
+      </div>
+
+      <div class="form-group">
+        <label for="feedbackDate">Date</label>
+        <input type="date" name="feedbackDate" id="feedbackDate" required>
+      </div>
+
+      <div class="form-group">
+        <label for="section">Section</label>
+        <input type="text" name="section" id="section" required>
+      </div>
+
+      <div class="form-group">
+        <label>
+          <input type="checkbox" name="anonymous"> Submit as Anonymous
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn">Get Started</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      // Optional: Add custom JS validation logic here if needed
+      return true;
+    }
+  </script>
+</body>
+</html>
