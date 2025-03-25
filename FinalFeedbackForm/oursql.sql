@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3307
--- Generation Time: Mar 24, 2025 at 02:12 PM
+-- Generation Time: Mar 25, 2025 at 07:42 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -51,6 +51,15 @@ CREATE TABLE `course` (
   `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`id`, `name`) VALUES
+(2, 'Collaborative Development'),
+(3, 'Human-Computer Interaction Feedback'),
+(4, 'Distributed and Cloud Systems Programming');
+
 -- --------------------------------------------------------
 
 --
@@ -70,6 +79,36 @@ CREATE TABLE `feedback` (
   `tutor_rating` int(11) DEFAULT NULL CHECK (`tutor_rating` between 1 and 5),
   `comment` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `feedback`
+--
+
+INSERT INTO `feedback` (`id`, `student_name`, `academic_year`, `semester`, `feedback_date`, `section`, `anonymous_mode`, `course_id`, `lecturer_rating`, `tutor_rating`, `comment`) VALUES
+(4, 'ugesh kc ', 'Year 2', '4th', '1999-11-11', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(7, 'ugesh kc ', 'Year 2', '4th', '1999-11-11', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(8, 'ugesh kc ', 'Year 2', '4th', '1999-11-11', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(9, NULL, NULL, NULL, NULL, NULL, 0, 4, 5, 5, 'nice'),
+(10, NULL, NULL, NULL, NULL, NULL, 0, 3, 5, 5, ''),
+(11, NULL, NULL, NULL, NULL, NULL, 1, 4, 5, 5, ''),
+(12, 'ugesh kc ', 'Year 2', '4th', '1999-11-11', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(13, 'ugesh kc ', 'Year 2', '4th', '1999-11-11', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(14, 'sss', 'Year 2', '4th', '1111-11-11', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(15, 'sss', 'Year 2', '4th', '4444-04-04', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(16, 'ad', 'as', 'as', '2222-02-22', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(17, NULL, NULL, NULL, NULL, NULL, 1, 2, 5, 5, 'bad'),
+(18, NULL, NULL, NULL, NULL, NULL, 0, 2, 3, 2, 'nice'),
+(19, 'ad', 'as', 'as', '2222-02-22', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(20, NULL, NULL, NULL, NULL, NULL, 0, 4, 5, 5, 'nice'),
+(21, 'ugesh kc ', 'Year 2', '4th', '1111-11-11', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(22, 'ugesh kc ', 'Year 2', '4th', '1111-11-11', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(23, '', NULL, NULL, NULL, NULL, 0, 2, 5, 5, ''),
+(24, 'a', 'b', 'b', '0111-11-11', 'L5CG22', 1, NULL, NULL, NULL, NULL),
+(25, 'dd', NULL, NULL, NULL, NULL, 0, 4, 5, 5, 'hii'),
+(26, 'a', 'v', 'a', '2025-11-11', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(27, '', NULL, NULL, NULL, NULL, 0, 2, 5, 5, 'goood'),
+(28, 'sss', 'Year 2', '4th', '1111-03-03', 'L5CG22', 0, NULL, NULL, NULL, NULL),
+(29, 'hi', NULL, NULL, NULL, NULL, 0, 2, 4, 5, 'good');
 
 -- --------------------------------------------------------
 
@@ -134,7 +173,8 @@ INSERT INTO `students` (`id`, `full_name`, `email`, `password`, `student_id`, `a
 (55, 'SUSHMA BASNET', 'sushma.basnet@l5cg22.edu', 'student123', 'L5CG22-26', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
 (56, 'SWEEKRITI DIWAKAR', 'sweekriti.diwakar@l5cg22.edu', 'student123', 'L5CG22-27', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
 (57, 'SWETA THAPA MAGAR', 'sweta.thapa@l5cg22.edu', 'student123', 'L5CG22-28', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
-(58, 'UGESH KC', 'ugesh.kc@l5cg22.edu', 'student123', 'L5CG22-29', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS');
+(58, 'UGESH KC', 'ugesh.kc@l5cg22.edu', 'student123', 'L5CG22-29', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(59, 'Suman sahha', 'suman.ss@l5cg22.edu', 'student123', 'L5CG22-30', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS');
 
 -- --------------------------------------------------------
 
@@ -207,25 +247,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `feedback`
 --
 ALTER TABLE `feedback`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `lecturer`
 --
 ALTER TABLE `lecturer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `tutor`
