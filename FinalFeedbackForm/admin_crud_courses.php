@@ -7,16 +7,23 @@ if (!isset($_SESSION['admin'])) {
     exit();
 }
 
-// Add
+// Add Course
 if (isset($_POST['add'])) {
     $name = $_POST['name'];
-    $conn->query("INSERT INTO course (name) VALUES ('$name')");
+    $stmt = $conn->prepare("INSERT INTO course (name) VALUES (?)");
+    $stmt->bind_param("s", $name);
+    $stmt->execute();
+    $stmt->close();
 }
 
-// Delete
+// Delete Course
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
-    $conn->query("DELETE FROM course WHERE id=$id");
+    $stmt = $conn->prepare("DELETE FROM course WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
+    $conn->query("ALTER TABLE course AUTO_INCREMENT = 1");
 }
 
 $result = $conn->query("SELECT * FROM course");

@@ -6,7 +6,11 @@ if (!isset($_SESSION['admin'])) {
 }
 include 'db_config.php';
 
-$result = $conn->query("SELECT f.*, c.name AS course FROM feedback f JOIN course c ON f.course_id = c.id");
+$result = $conn->query("
+    SELECT f.id, f.student_name, f.lecturer_rating, f.tutor_rating, f.comment, c.name AS course 
+    FROM feedback f 
+    JOIN course c ON f.course_id = c.id
+");
 ?>
 
 <!DOCTYPE html>
@@ -25,9 +29,8 @@ $result = $conn->query("SELECT f.*, c.name AS course FROM feedback f JOIN course
     <a href="admin_crud_courses.php" class="btn btn-outline-primary btn-sm">Manage Courses</a>
     <a href="admin_crud_lecturers.php" class="btn btn-outline-primary btn-sm">Manage Lecturers</a>
     <a href="admin_crud_tutors.php" class="btn btn-outline-primary btn-sm">Manage Tutors</a>
-    <a href="export_feedback_csv.php" class="btn btn-success btn-sm">Export CSV</a>
-    <a href="export_feedback_pdf.php" class="btn btn-danger btn-sm">Export PDF</a>
     <a href="admin_crud_students.php" class="btn btn-outline-primary btn-sm">Manage Students</a>
+    <a href="export_feedback_csv.php" class="btn btn-success btn-sm">Export CSV</a>
   </div>
 
   <table class="table table-striped table-bordered">
@@ -42,14 +45,14 @@ $result = $conn->query("SELECT f.*, c.name AS course FROM feedback f JOIN course
       </tr>
     </thead>
     <tbody>
-      <?php if ($result->num_rows > 0): ?>
+      <?php if ($result && $result->num_rows > 0): ?>
         <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
-          <td><?= htmlspecialchars($row['student_name']) ?></td>
-          <td><?= htmlspecialchars($row['course']) ?></td>
-          <td><?= $row['lecturer_rating'] ?></td>
-          <td><?= $row['tutor_rating'] ?></td>
-          <td><?= substr($row['comment'], 0, 30) ?>...</td>
+          <td><?= htmlspecialchars($row['student_name'] ?? '') ?></td>
+          <td><?= htmlspecialchars($row['course'] ?? '') ?></td>
+          <td><?= htmlspecialchars($row['lecturer_rating'] ?? 'N/A') ?></td>
+          <td><?= htmlspecialchars($row['tutor_rating'] ?? 'N/A') ?></td>
+          <td><?= htmlspecialchars(substr($row['comment'] ?? '', 0, 30)) ?>...</td>
           <td><a href="view_feedback.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info">View</a></td>
         </tr>
         <?php endwhile; ?>

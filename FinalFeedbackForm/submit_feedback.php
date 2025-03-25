@@ -16,7 +16,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("sssssi", $studentName, $academicYear, $semester, $feedbackDate, $section, $anonymous);
 
 if ($stmt->execute()) {
-    echo "<script>window.location.href='course_select.html';</script>";
+    echo "<script>window.location.href='course_select.php';</script>";
 } else {
     echo "<script>alert('Something went wrong!'); window.history.back();</script>";
 }

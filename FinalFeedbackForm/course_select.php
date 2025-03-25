@@ -1,3 +1,10 @@
+<?php
+include 'db_config.php';
+
+// Fetch courses from the database
+$courses = $conn->query("SELECT id, name FROM course");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +14,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-image: url('background.jpg'); /* Replace with your chalkboard background */
+      background-image: url('background.jpg');
       background-size: cover;
       background-position: center;
       height: 100vh;
@@ -59,11 +66,10 @@
     <h1>Student Feedback Form</h1>
     <p>Fill the feedback form so that we can make our teaching better</p>
 
-    <!-- Simulated dropdown-style buttons -->
     <form action="rating_form.php" method="post">
-      <button class="course-button" name="course" value="Collaborative Development">Collaborative Development</button>
-      <button class="course-button" name="course" value="Human-Computer Interaction">Human-Computer Interaction</button>
-      <button class="course-button" name="course" value="Distributed and Cloud Systems Programming">Distributed and Cloud Systems Programming</button>
+      <?php while ($course = $courses->fetch_assoc()): ?>
+        <button class="course-button" name="course_id" value="<?= $course['id'] ?>"><?= $course['name'] ?></button>
+      <?php endwhile; ?>
     </form>
   </div>
 </body>
