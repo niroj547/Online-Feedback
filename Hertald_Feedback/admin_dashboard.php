@@ -26,6 +26,19 @@ $result = $conn->query($sql);
 <head>
   <title>Admin Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .btn-white-blue {
+      background-color: white;
+      color: #0d6efd;
+      border: 1px solid #0d6efd;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn-white-blue:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+  </style>
 </head>
 <body class="bg-white p-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
@@ -57,20 +70,78 @@ $result = $conn->query($sql);
       </tr>
     </thead>
     <tbody>
-      <?php if ($result && $result->num_rows > 0): ?>
-        <?php while ($row = $result->fetch_assoc()): ?>
-        <tr>
-          <td><?= htmlspecialchars($row['student_name'] ?? '') ?></td>
-          <td><?= htmlspecialchars($row['course'] ?? '') ?></td>
-          <td><?= htmlspecialchars($row['lecturer_rating'] ?? 'N/A') ?></td>
-          <td><?= htmlspecialchars($row['tutor_rating'] ?? 'N/A') ?></td>
-          <td><?= htmlspecialchars(substr($row['comment'] ?? '', 0, 30)) ?>...</td>
-          <td><a href="view_feedback.php?id=<?= $row['id'] ?>" class="btn btn-sm btn-info">View</a></td>
-        </tr>
-        <?php endwhile; ?>
-      <?php else: ?>
-        <tr><td colspan="6" class="text-center">No feedback submitted yet.</td></tr>
-      <?php endif; ?>
+      <tr>
+        <td>s</td>
+        <td>Collaborative Development</td>
+        <td>5</td>
+        <td>2</td>
+        <td>bad...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td>s</td>
+        <td>Collaborative Development</td>
+        <td>5</td>
+        <td>2</td>
+        <td>nice...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr class="table-active">
+        <td>s</td>
+        <td>Collaborative Development</td>
+        <td>5</td>
+        <td>2</td>
+        <td>good...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td>h</td>
+        <td>Collaborative Development</td>
+        <td>4</td>
+        <td>5</td>
+        <td>good...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td>i</td>
+        <td>Collaborative Development</td>
+        <td>4</td>
+        <td>5</td>
+        <td>really...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>Human-Computer Interaction Feedback</td>
+        <td>5</td>
+        <td>5</td>
+        <td>nice...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td>n</td>
+        <td>Distributed and Cloud Systems Programming</td>
+        <td>4</td>
+        <td>5</td>
+        <td>nice...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td>n</td>
+        <td>Distributed and Cloud Systems Programming</td>
+        <td>4</td>
+        <td>5</td>
+        <td>nice...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
+      <tr>
+        <td>df</td>
+        <td>Distributed and Cloud Systems Programming</td>
+        <td>5</td>
+        <td>5</td>
+        <td>NI...</td>
+        <td><a href="#" class="btn btn-sm btn-white-blue">View</a></td>
+      </tr>
     </tbody>
   </table>
 </body>

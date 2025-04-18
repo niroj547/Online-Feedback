@@ -2,77 +2,129 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Student Login</title>
+  <title>Hertald Feedback Login</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
       font-family: 'Segoe UI', sans-serif;
-      background-image: url('background.jpg');
-      background-size: cover;
-      background-position: center;
+    }
+
+    body {
       height: 100vh;
+      background: linear-gradient(135deg, #a3e3d3, #f8e1db);
       display: flex;
       justify-content: center;
       align-items: center;
-      color: white;
     }
 
-    .login-container {
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.4);
-      padding: 40px;
-      border-radius: 15px;
+    .container {
+      width: 1000px;
+      height: 600px;
+      display: flex;
+      box-shadow: 0 0 25px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      overflow: hidden;
     }
 
-    .login-container h1 {
-      margin-bottom: 30px;
-      font-size: 32px;
+    .left-panel {
+      flex: 1;
+      background-image: url('image/logo.jpg');
+      background-size: 30%; /* smaller than the full container */
+      background-repeat: no-repeat; /* prevent tiling */
+      background-position: center;
+      background-color: #fff;
+      margin-bottom: 30px;;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px;
     }
 
-    .login-container input[type="email"],
-    .login-container input[type="password"] {
-      display: block;
-      width: 100%;
-      padding: 10px;
-      margin: 15px 0;
-      font-size: 16px;
-      border: none;
-      border-radius: 10px;
-      background-color: #d8ccc8;
-      color: #333;
-    }
-
-    .forgot-password {
-      text-align: right;
-      font-size: 13px;
-      color: #eee;
-      margin-bottom: 20px;
-    }
-
-    .login-btn {
-      background-color: #d8ccc8;
-      padding: 10px 30px;
-      font-size: 18px;
+    .left-panel h2 {
+      font-size: 30px;
+      margin-top: 230px;;
       font-weight: bold;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
+      color: #000000;
     }
 
-    .login-btn:hover {
-      background-color: #c2b2af;
+    .right-panel {
+      flex: 1;
+      background-color: #5c5c5c;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 60px;
+    }
+
+    .right-panel h2 {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .right-panel p {
+      margin-bottom: 40px;
+      font-size: 16px;
+    }
+
+    .right-panel input {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+    }
+
+    .right-panel input::placeholder {
+      color: #888;
+    }
+
+    .login-button {
+      background-color: #007b7f;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    .right-panel a {
+      font-size: 14px;
+      color: #ccc;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+    }
+
+    .right-panel a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h1>Student Login</h1>
-    <form action="student_login_check.php" method="post">
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <div class="forgot-password">Forgot password?</div>
-      <button class="login-btn" type="submit">Login</button>
-    </form>
+
+  <div class="container">
+    <div class="left-panel">
+      <h2>Hertald Feedback</h2>
+    </div>
+    <div class="right-panel">
+      <h2>Welcome</h2>
+      <p>To provide feedback, please log in.</p>
+      <form action="student_login_check.php" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button class="login-button" type="submit">Login</button>
+        <a href="#">Forgot password?</a>
+      </form>
+    </div>
   </div>
+
 </body>
 </html>

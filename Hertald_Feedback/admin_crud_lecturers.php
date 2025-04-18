@@ -70,8 +70,67 @@ $result = $conn->query("SELECT * FROM lecturer");
 <head>
   <title>Manage Lecturers</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      padding: 40px;
+      background-color: #f8f9fa;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .btn-update {
+      background-color: white;
+      color: #0d6efd;
+      border: 1px solid #0d6efd;
+    }
+
+    .btn-update:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .btn-delete {
+      background-color: white;
+      color: #dc3545;
+      border: 1px solid #dc3545;
+    }
+
+    .btn-delete:hover {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-back {
+      background-color: #e0e0e0;
+      border: none;
+      width: 100%;
+      padding: 10px;
+      margin-top: 30px;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .btn-back:hover {
+      background-color: #d5d5d5;
+    }
+
+    table td:first-child,
+    table td:nth-child(2),
+    table td:nth-child(3),
+    table th:first-child,
+    table th:nth-child(2),
+    table th:nth-child(3) {
+      text-align: left;
+    }
+
+    td, th {
+      vertical-align: middle !important;
+    }
+  </style>
 </head>
-<body class="p-4">
+<body>
   <h2>Manage Lecturers</h2>
 
   <form method="post" class="mb-3 row g-2">
@@ -86,30 +145,35 @@ $result = $conn->query("SELECT * FROM lecturer");
     </div>
   </form>
 
-  <table class="table table-bordered">
-    <thead><tr><th>ID</th><th>Name</th><th>Course ID</th><th>Actions</th></tr></thead>
+  <table class="table table-bordered bg-white align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Course ID</th>
+        <th class="text-center">Actions</th>
+      </tr>
+    </thead>
     <tbody>
       <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
-          <form method="post" class="d-flex">
-            <td><?= $row['id'] ?></td>
-            <td>
-              <input type="text" name="name" value="<?= htmlspecialchars($row['name']) ?>" class="form-control" required>
-            </td>
-            <td>
-              <input type="number" name="course_id" value="<?= $row['course_id'] ?>" class="form-control" required>
+          <td><?= $row['id'] ?></td>
+          <td><?= htmlspecialchars($row['name']) ?></td>
+          <td><?= $row['course_id'] ?></td>
+          <td>
+            <form method="post" class="d-flex justify-content-center gap-2">
               <input type="hidden" name="id" value="<?= $row['id'] ?>">
-            </td>
-            <td>
-              <button name="update" class="btn btn-primary btn-sm me-2">Update</button>
-              <button name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-            </td>
-          </form>
+              <input type="hidden" name="name" value="<?= htmlspecialchars($row['name']) ?>">
+              <input type="hidden" name="course_id" value="<?= $row['course_id'] ?>">
+              <button name="update" class="btn btn-update btn-sm">Update</button>
+              <button name="delete" class="btn btn-delete btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
+            </form>
+          </td>
         </tr>
       <?php endwhile; ?>
     </tbody>
   </table>
 
-  <a href="admin_dashboard.php" class="btn btn-secondary mt-3">Back to Dashboard</a>
+  <a href="admin_dashboard.php" class="btn btn-back">← Back to Dashboard</a>
 </body>
 </html>

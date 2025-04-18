@@ -1,9 +1,9 @@
 <?php
 $host = "localhost";
 $user = "root";
-$password = "NewStrongPassword";
-$database = "hertald_feedback";
-$port = 3307;
+$password = "";
+$database = "feedback";
+$port = 3306;
 
 $conn = new mysqli($host, $user, $password, $database, $port);
 
