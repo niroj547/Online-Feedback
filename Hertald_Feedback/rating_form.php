@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['submit'])) {
 </head>
 <body class="bg-light p-4">
 <div class="container">
-  <h2 class="mb-4">Feedback for <?= htmlspecialchars($course_name) ?></h2>
+  <h2 class="mb-4">Feedback <?= htmlspecialchars($course_name) ?></h2>
 
   <form method="post" id="feedbackForm">
     <input type="hidden" name="course_id" value="<?= $course_id ?>">

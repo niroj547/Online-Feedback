@@ -3,71 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title>Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-image: url('background.jpg'); /* your chalkboard bg */
-      background-size: cover;
+      font-family: 'times new roman';
+      background-image: url('image/sat.jpg');
+      background-color: rgb(240, 245, 245); ;
+      background-size: 65%; /* smaller than the full container */
+      background-repeat: no-repeat; /* prevent tiling */
       background-position: center;
-      height: 100vh;
-      color: white;
-    }
-
-    .top-bar {
+      height: 100vh;   
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      padding: 20px;
-      background-color: rgba(0, 0, 0, 0.3);
+      flex-direction: column;
     }
 
-    .top-bar h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    .input-placeholder {
-      flex-grow: 1;
-      margin: 0 20px;
-      height: 40px;
-      background-color: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+    h1 {
+      font-size: 50px;
+      font-weight: 500;
+      position: absolute;
+      top: 20px;
+      left: 300px;
+      letter-spacing: 1px;
     }
 
     .login-btn {
-      background-color: #ddd;
-      padding: 10px 20px;
-      border-radius: 8px;
+      background-color: #f4c48a;
+      padding: 12px 30px;
+      border-radius: 25px;
       border: none;
-      font-weight: bold;
+      font-weight: 500;
+      font-size: 16px;
       cursor: pointer;
       text-decoration: none;
       color: black;
+      position: absolute;
+      bottom: 20px;
+      left: 300px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #e0b073;
+      transform: translateY(-2px);
     }
 
     .admin-link {
+      font-size: 12px;
       position: absolute;
       bottom: 20px;
-      right: 20px;
-      font-size: 14px;
-      background-color: rgba(255,255,255,0.8);
-      color: black;
-      padding: 8px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      right: 300px;
+      color: rgb(0, 0, 0);
+      text-decoration: underline;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .admin-link:hover {
+      color: #575450;
     }
   </style>
 </head>
 <body>
-  <div class="top-bar">
-    <h1>Feedback</h1>
-    <div class="input-placeholder"></div>
-    
-    <a href="student_login.html" class="login-btn">Login</a>
-  </div>
+  <h1>Feedback</h1>
+  <a href="student_login.html" class="login-btn">Login</a>
   <a href="admin_login.html" class="admin-link">Admin Login</a>
 </body>
 </html>

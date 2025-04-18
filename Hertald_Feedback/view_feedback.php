@@ -38,6 +38,75 @@ if (isset($_GET['id'])) {
 <head>
   <title>View Feedback</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+  background-color: #f8f9fa;
+  font-family: system-ui, sans-serif;
+  color: #333;
+}
+
+.card {
+  border-radius: 12px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  background-color: #e9ecef;
+  font-weight: 500;
+}
+
+.btn {
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table thead th {
+  background-color: #343a40; /* Darker background for first row */
+  color: #ffffff;
+  font-weight: 600;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #dee2e6; /* Visible border for each row */
+}
+
+.table tbody tr:hover {
+  background-color: #f1f3f5;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.badge {
+  font-size: 0.875rem;
+  border-radius: 0.375rem;
+  padding: 0.35em 0.6em;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d !important;
+}
+
+.badge.bg-light {
+  background-color: #f8f9fa !important;
+  border: 1px solid #ced4da;
+}
+
+.btn-sm {
+  font-size: 0.85rem;
+}
+
+  </style>
 </head>
 <body class="bg-light">
 <div class="container py-4">
@@ -46,7 +115,7 @@ if (isset($_GET['id'])) {
   <!-- Single Feedback View -->
   <h2 class="mb-3">Feedback Details</h2>
   <div class="card mb-4">
-    <div class="card-header bg-primary text-white">Report</div>
+    <div class="card-header">Report</div>
     <div class="card-body">
       <p><strong>Course:</strong> <?= htmlspecialchars($feedback['course_name'] ?? '') ?></p>
       <p><strong>Student:</strong> <?= $feedback['anonymous_mode'] ? 'Anonymous' : htmlspecialchars($feedback['student_name'] ?? '') ?></p>
@@ -62,12 +131,12 @@ if (isset($_GET['id'])) {
     </div>
     <div class="card-footer d-flex justify-content-between flex-wrap gap-2">
       <?php if ($feedback['verified']): ?>
-        <a href="?unverify_id=<?= $feedback['id'] ?>" class="btn btn-warning">Unverify</a>
+        <a href="?unverify_id=<?= $feedback['id'] ?>" class="btn btn-outline-secondary">Unverify</a>
       <?php else: ?>
-        <a href="?verify_id=<?= $feedback['id'] ?>" class="btn btn-success">Verify</a>
+        <a href="?verify_id=<?= $feedback['id'] ?>" class="btn btn-outline-success">Verify</a>
       <?php endif; ?>
-      <a href="?delete_id=<?= $feedback['id'] ?>" class="btn btn-danger" onclick="return confirm('Delete this feedback?')">Delete</a>
-      <a href="view_feedback.php" class="btn btn-secondary">Back</a>
+      <a href="?delete_id=<?= $feedback['id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Delete this feedback?')">Delete</a>
+      <a href="view_feedback.php" class="btn btn-outline-dark">Back</a>
     </div>
   </div>
 
@@ -83,7 +152,7 @@ if (isset($_GET['id'])) {
 
   <?php if ($result->num_rows > 0): ?>
     <table class="table table-bordered bg-white">
-      <thead class="table-dark">
+      <thead>
         <tr>
           <th>Date</th>
           <th>Course</th>
@@ -99,10 +168,12 @@ if (isset($_GET['id'])) {
           <td><?= htmlspecialchars($row['course_name'] ?? '') ?></td>
           <td><?= $row['anonymous_mode'] ? '<i>Anonymous</i>' : htmlspecialchars($row['student_name'] ?? '') ?></td>
           <td>
-            <?= $row['verified'] ? '<span class="badge bg-success">Verified</span>' : '<span class="badge bg-warning text-dark">Pending</span>' ?>
+            <?= $row['verified'] 
+              ? '<span class="badge bg-secondary">Verified</span>' 
+              : '<span class="badge bg-light text-dark">Pending</span>' ?>
           </td>
           <td>
-            <a href="?id=<?= $row['id'] ?>" class="btn btn-sm btn-primary">View</a>
+            <a href="?id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-primary">View</a>
             <a href="?delete_id=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this feedback?')">Delete</a>
           </td>
         </tr>
@@ -110,7 +181,7 @@ if (isset($_GET['id'])) {
       </tbody>
     </table>
   <?php else: ?>
-    <div class="alert alert-info">No feedback found.</div>
+    <div class="alert alert-light border">No feedback found.</div>
   <?php endif; ?>
 <?php endif; ?>
 

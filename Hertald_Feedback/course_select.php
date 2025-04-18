@@ -16,24 +16,72 @@ $courses = $courses_query->fetch_all(MYSQLI_ASSOC);
 <head>
   <meta charset="UTF-8">
   <title>Select Course</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      height: 100vh;
+      background: linear-gradient(135deg, #c2e9fb, #fce2de);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: white;
+      padding: 3rem 4rem;
+      border-radius: 30px;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 500px;
+    }
+
+    .card h2 {
+      margin-bottom: 0.75rem;
+      font-size: 2rem;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .card button {
+      display: block;
+      width: 100%;
+      margin: 0.75rem 0;
+      padding: 1rem;
+      border: 2px solid #00796b;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      background-color: white;
+      color: #00796b;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .card button:hover {
+      background-color: #00796b;
+      color: white;
+    }
+  </style>
 </head>
-<body class="bg-light">
-<div class="container py-5">
-  <h2 class="mb-4">Select a Course to Rate</h2>
+<body>
 
-  <form action="rating_form.php" method="post">
-    <?php foreach ($courses as $course): ?>
-      <div class="form-check mb-2">
-        <input class="form-check-input" type="radio" name="course_id" id="course_<?= $course['id'] ?>" value="<?= $course['id'] ?>" required>
-        <label class="form-check-label" for="course_<?= $course['id'] ?>">
-          <?= htmlspecialchars($course['name']) ?>
-        </label>
-      </div>
-    <?php endforeach; ?>
+  <div class="card">
+    <h2>Select Course</h2>
+    <p>Choose a course to provide feedback and help us improve!</p>
+    <button>Collaborative Development</button>
+    <button>Human-Computer Interaction</button>
+    <button>Distributed and Cloud Systems Programming</button>
+  </div>
 
-    <button type="submit" class="btn btn-primary mt-3">Next</button>
-  </form>
-</div>
 </body>
 </html>

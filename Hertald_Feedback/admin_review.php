@@ -45,21 +45,101 @@ $unverified = $conn->query("SELECT f.id, f.student_name, f.feedback_date, c.name
 <head>
   <title>Admin - Review Feedback</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: white;
+      color: black;
+    }
+
+    .card {
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.05);
+    }
+
+    .table {
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .btn-custom {
+      background-color: white;
+      border-width: 1.5px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    /* Button Colors */
+    .btn-success.btn-custom {
+      border-color: #198754;
+      color: #198754;
+    }
+
+    .btn-success.btn-custom:hover {
+      background-color: #198754;
+      color: white;
+    }
+
+    .btn-danger.btn-custom {
+      border-color: #dc3545;
+      color: #dc3545;
+    }
+
+    .btn-danger.btn-custom:hover {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .btn-secondary.btn-custom {
+      border-color: #6c757d;
+      color: #6c757d;
+    }
+
+    .btn-secondary.btn-custom:hover {
+      background-color: #6c757d;
+      color: white;
+    }
+
+    .btn-primary.btn-custom {
+      border-color: #0d6efd;
+      color: #0d6efd;
+    }
+
+    .btn-primary.btn-custom:hover {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .table td, .table th {
+      vertical-align: middle;
+    }
+
+    .table thead {
+      background-color: #f2f2f2;
+    }
+
+    .card-header {
+      background-color: #e9ecef;
+      font-weight: 600;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  </style>
 </head>
-<body class="bg-light">
-<div class="container py-4">
-  <h2 class="mb-4">Pending Feedback Review</h2>
+<body>
+<div class="container py-5">
+  <h2 class="mb-4 fw-bold">Pending Feedback Review</h2>
 
   <?php if (isset($_GET['success'])): ?>
-    <div class="alert alert-success">
+    <div class="alert alert-success rounded-3">
       <?= $_GET['success'] === 'verified' ? 'Feedback verified successfully.' : 'Feedback deleted.' ?>
     </div>
   <?php endif; ?>
 
   <?php if ($preview): ?>
-    <!-- Preview full report -->
+    <!-- Full Feedback Preview -->
     <div class="card mb-4">
-      <div class="card-header bg-primary text-white">Full Feedback Report</div>
+      <div class="card-header">Full Feedback Report</div>
       <div class="card-body">
         <p><strong>Course:</strong> <?= htmlspecialchars($preview['course_name'] ?? 'N/A') ?></p>
         <p><strong>Student:</strong> <?= $preview['anonymous_mode'] ? 'Anonymous' : htmlspecialchars($preview['student_name'] ?? 'N/A') ?></p>
@@ -77,41 +157,46 @@ $unverified = $conn->query("SELECT f.id, f.student_name, f.feedback_date, c.name
           <?= nl2br(htmlspecialchars(($preview['tutor_comment'] !== null && $preview['tutor_comment'] !== '') ? $preview['tutor_comment'] : 'No comment')) ?>
         </p>
       </div>
-      <div class="card-footer d-flex justify-content-between flex-wrap gap-2">
-        <a href="?approve=<?= $preview['id'] ?>" class="btn btn-success" onclick="return confirm('Approve this feedback?')">Approve</a>
-        <a href="?delete=<?= $preview['id'] ?>" class="btn btn-danger" onclick="return confirm('Delete this feedback?')">Delete</a>
-        <a href="admin_review.php" class="btn btn-secondary">Back</a>
+      <div class="card-footer d-flex flex-wrap justify-content-between gap-2">
+        <a href="?approve=<?= $preview['id'] ?>" class="btn btn-success btn-custom" onclick="return confirm('Approve this feedback?')">Approve</a>
+        <a href="?delete=<?= $preview['id'] ?>" class="btn btn-danger btn-custom" onclick="return confirm('Delete this feedback?')">Delete</a>
+        <a href="admin_review.php" class="btn btn-secondary btn-custom">Back</a>
       </div>
     </div>
 
   <?php else: ?>
-    <!-- Unverified Feedback List -->
+    <!-- Unverified Feedback Table -->
     <?php if ($unverified->num_rows > 0): ?>
-      <table class="table table-bordered bg-white">
-        <thead class="table-dark">
-          <tr>
-            <th>Date</th>
-            <th>Course</th>
-            <th>Student</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-        <?php while ($row = $unverified->fetch_assoc()): ?>
-          <tr>
-            <td><?= htmlspecialchars($row['feedback_date'] ?? '') ?></td>
-            <td><?= htmlspecialchars($row['course_name'] ?? '') ?></td>
-            <td><?= $row['student_name'] ? htmlspecialchars($row['student_name']) : '<i>Anonymous</i>' ?></td>
-            <td>
-              <a href="?id=<?= $row['id'] ?>" class="btn btn-sm btn-primary">View</a>
-              <a href="?delete=<?= $row['id'] ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this feedback?')">Delete</a>
-            </td>
-          </tr>
-        <?php endwhile; ?>
-        </tbody>
-      </table>
+      <div class="card">
+        <div class="card-header">Unverified Feedback List</div>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover mb-0">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Course</th>
+                <th>Student</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php while ($row = $unverified->fetch_assoc()): ?>
+                <tr>
+                  <td><?= htmlspecialchars($row['feedback_date'] ?? '') ?></td>
+                  <td><?= htmlspecialchars($row['course_name'] ?? '') ?></td>
+                  <td><?= $row['student_name'] ? htmlspecialchars($row['student_name']) : '<i>Anonymous</i>' ?></td>
+                  <td class="text-center">
+                    <a href="?id=<?= $row['id'] ?>" class="btn btn-sm btn-primary btn-custom me-1">View</a>
+                    <a href="?delete=<?= $row['id'] ?>" class="btn btn-sm btn-danger btn-custom" onclick="return confirm('Delete this feedback?')">Delete</a>
+                  </td>
+                </tr>
+              <?php endwhile; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
     <?php else: ?>
-      <div class="alert alert-info">No unverified feedback at the moment.</div>
+      <div class="alert alert-info rounded-3">No unverified feedback at the moment.</div>
     <?php endif; ?>
   <?php endif; ?>
 </div>
