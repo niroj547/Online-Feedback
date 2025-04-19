@@ -72,30 +72,30 @@
     <h1>Student Feedback Form</h1>
     <p>We value your feedback to improve our teaching methods!</p>
 
-    <form>
+    <form id="feedbackForm">
       <div class="form-group">
         <label for="studentName">Your Name</label>
-        <input type="text" class="form-control" id="studentName" name="studentName">
+        <input type="text" class="form-control" id="studentName" name="studentName" required>
       </div>
 
       <div class="form-group">
         <label for="academicYear">Academic Year</label>
-        <input type="text" class="form-control" id="academicYear" name="academicYear">
+        <input type="text" class="form-control" id="academicYear" name="academicYear" required>
       </div>
 
       <div class="form-group">
         <label for="semester">Semester</label>
-        <input type="text" class="form-control" id="semester" name="semester">
+        <input type="text" class="form-control" id="semester" name="semester" required>
       </div>
 
       <div class="form-group">
         <label for="feedbackDate">Date</label>
-        <input type="date" class="form-control" id="feedbackDate" name="feedbackDate">
+        <input type="date" class="form-control" id="feedbackDate" name="feedbackDate" required>
       </div>
 
       <div class="form-group">
         <label for="section">Section</label>
-        <input type="text" class="form-control" id="section" name="section">
+        <input type="text" class="form-control" id="section" name="section" required>
       </div>
 
       <div class="form-check mb-3">
@@ -106,5 +106,37 @@
       <button type="submit" class="submit-btn">SUBMIT FEEDBACK</button>
     </form>
   </div>
+
+  <script>
+    // JavaScript to handle form validation and reset
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission for validation
+
+      // Get form values
+      const studentName = document.getElementById('studentName').value;
+      const academicYear = document.getElementById('academicYear').value;
+      const semester = document.getElementById('semester').value;
+      const feedbackDate = document.getElementById('feedbackDate').value;
+      const section = document.getElementById('section').value;
+
+      // Validate that all required fields are filled
+      if (!studentName || !academicYear || !semester || !feedbackDate || !section) {
+        alert('Please fill in all required fields.');
+        return;
+      }
+
+      // Example of custom validation for academic year length
+      if (academicYear.trim().length < 4) {
+        alert('Please enter a valid academic year.');
+        return;
+      }
+
+      // If all validation passes, submit the form and reset the form fields
+      alert('Feedback Submitted Successfully!');
+      
+      // Reset the form fields
+      document.getElementById('feedbackForm').reset();
+    });
+  </script>
 </body>
 </html>
