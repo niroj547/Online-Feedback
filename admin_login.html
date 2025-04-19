@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('background.jpg'); /* Replace with your green chalkboard image */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+
+    .login-container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 15px;
+    }
+
+    .login-container h1 {
+      margin-bottom: 30px;
+      font-size: 32px;
+    }
+
+    .login-container input[type="email"],
+    .login-container input[type="password"] {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 15px 0;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      background-color: #d8ccc8;
+      color: #333;
+    }
+
+    .forgot-password {
+      text-align: right;
+      font-size: 13px;
+      color: #eee;
+      margin-bottom: 20px;
+    }
+
+    .login-btn {
+      background-color: #d8ccc8;
+      padding: 10px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      background-color: #c2b2af;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Admin Login</h1>
+    <form action="admin_login_check.php" method="post">
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <div class="forgot-password">Forgot password?</div>
+      <button class="login-btn" type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>
