@@ -1,23 +1,304 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Submit Feedback</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <title>Student Feedback Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #a3e3d3, #f8e1db); /* Matching background */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      color: #000; /* Darker text for better contrast on light background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .form-container {
+      background-color: #fff; /* White container */
+      padding: 60px; /* Similar padding */
+      border-radius: 20px; /* Rounded corners */
+      width: 1000px; /* Wider to mimic the container */
+      max-width: 90%; /* Ensure responsiveness */
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1); /* Similar shadow */
+    }
+
+    .form-container h1 {
+      margin-bottom: 15px; /* Adjusted margin */
+      font-size: 32px; /* Larger heading */
+      color: #000000; /* Dark heading */
+    }
+
+    .form-container p {
+      font-size: 16px; /* Slightly larger paragraph text */
+      margin-bottom: 30px; /* Adjusted margin */
+      color: #5c5c5c; /* Darker paragraph text */
+    }
+
+    .form-group {
+      margin-bottom: 25px; /* Increased spacing between form groups */
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 14px;
+      font-size: 17px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-sizing: border-box; /* Ensure padding doesn't affect width */
+    }
+
+    .form-check {
+      margin-bottom: 20px;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      font-size: 18px;
+      font-weight: bold;
+      background-color: #007b7f; /* Matching button color */
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 30px; /* Increased top margin */
+    }
+
+    .submit-btn:hover {
+      background-color: #005a5d; /* Darker hover effect */
+    }
+
+    .success-message, .warning-message {
+      padding: 15px;
+      border-radius: 10px;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .success-message {
+      background-color: rgba(0, 123, 255, 0.1); /* Bootstrap success blue */
+      color: green;
+      border: 1px solid green;
+    }
+
+    .warning-message {
+      background-color: rgba(255, 193, 7, 0.1); /* Bootstrap warning yellow */
+      color: orange;
+      border: 1px solid orange;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff; /* White popup background */
+      padding: 30px;
+      border-radius: 15px;
+      color: #333; /* Dark popup text */
+      text-align: center;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+    }
+
+    .popup h3 {
+      margin-bottom: 10px;
+      color: #007b7f; /* Matching primary color */
+    }
+
+    .popup button {
+      margin-top: 20px;
+      padding: 12px 25px;
+      background-color: #007b7f; /* Matching button color */
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .popup button:hover {
+      background-color: #005a5d; /* Darker hover effect */
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Submit Feedback</h2>
-        <form action="feedback_form.php" method="POST">
-            <select name="course_id">
-                <option value="1">Mathematics</option>
-                <option value="2">Physics</option>
-                <option value="3">Computer Science</option>
-            </select>
-            <textarea name="feedback" placeholder="Write your feedback here..." required></textarea>
-            <label><input type="checkbox" name="anonymous"> Submit Anonymously</label>
-            <button type="submit">Submit</button>
-        </form>
+  <div class="form-container">
+    <h1>Student Feedback Form</h1>
+    <p>Fill the feedback form so that we can make our teaching better</p>
+
+    <form id="feedbackForm">
+      <div class="form-group">
+        <label for="studentName">Your Name</label>
+        <input type="text" name="studentName" id="studentName" class="form-control" required>
+      </div>
+
+      <div class="form-check form-group">
+        <input type="checkbox" class="form-check-input" id="anonymous" name="anonymous">
+        <label class="form-check-label" for="anonymous">Submit anonymously</label>
+      </div>
+
+      <div class="form-group">
+        <label for="academicYear">Academic Year</label>
+        <select name="academicYear" id="academicYear" class="form-control" required>
+          <option value="">Select Academic Year</option>
+          <option value="Year 1">Year 1</option>
+          <option value="Year 2">Year 2</option>
+          <option value="Year 3">Year 3</option>
+          <option value="Year 4">Year 4</option>
+        </select>
+        <div id="academicYearError" class="error-message"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="semester">Semester</label>
+        <select name="semester" id="semester" class="form-control" required>
+          <option value="">Select Semester</option>
+          <option value="1st">1st</option>
+          <option value="2nd">2nd</option>
+          <option value="3rd">3rd</option>
+          <option value="4th">4th</option>
+          <option value="5th">5th</option>
+          <option value="6th">6th</option>
+          <option value="7th">7th</option>
+          <option value="8th">8th</option>
+        </select>
+        <div id="semesterError" class="error-message"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="feedbackDate">Date</label>
+        <input type="date" name="feedbackDate" id="feedbackDate" class="form-control" required>
+        <div id="dateError" class="error-message"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="section">Section</label>
+        <select name="section" id="section" class="form-control" required>
+          <option value="">Select Section</option>
+          <option value="L5CG22">L5CG22</option>
+          <option value="L5CG23">L5CG23</option>
+          <option value="L5CG24">L5CG24</option>
+        </select>
+        <div id="sectionError" class="error-message"></div>
+      </div>
+
+      <div class="form-group">
+        <label for="program">Program</label>
+        <select name="program" id="program" class="form-control" required>
+          <option value="">Select Program</option>
+          <option value="BSc(Hons)CS">BSc(Hons)CS</option>
+          <option value="BSc(Hons)IT">BSc(Hons)IT</option>
+          <option value="MScCS">MScCS</option>
+        </select>
+        <div id="programError" class="error-message"></div>
+      </div>
+
+      <button type="submit" class="submit-btn">Get Started</button>
+    </form>
+
+    <div id="successMessage" class="success-message" style="display: none;">
+      <i class="bi bi-check-circle"></i> Feedback submitted successfully! Thank you for your input.
     </div>
+
+    <div id="warningMessage" class="warning-message" style="display: none;">
+      <i class="bi bi-exclamation-triangle"></i> You have already submitted feedback for this course within the last week.
+    </div>
+  </div>
+
+  <div id="nextCoursePopup" class="popup">
+    <h3>Feedback Submitted!</h3>
+    <p>Congratulations on completing the feedback!</p>
+    <button id="nextCourseBtn">Next Course</button>
+  </div>
+
+  <script>
+    // Toggle anonymous mode
+    document.getElementById('anonymous').addEventListener('change', function() {
+      const studentName = document.getElementById('studentName');
+      if (this.checked) {
+        studentName.value = '';
+        studentName.disabled = true;
+      } else {
+        studentName.disabled = false;
+      }
+    });
+
+    // Form validation
+    document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission for validation
+
+      let isValid = true;
+      const academicYear = document.getElementById('academicYear');
+      const semester = document.getElementById('semester');
+      const feedbackDate = document.getElementById('feedbackDate');
+      const section = document.getElementById('section');
+      const program = document.getElementById('program');
+
+      // Clear previous error messages
+      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+      // Validate academic year
+      if (!academicYear.value) {
+        document.getElementById('academicYearError').textContent = 'Please select an academic year.';
+        isValid = false;
+      }
+
+      // Validate semester
+      if (!semester.value) {
+        document.getElementById('semesterError').textContent = 'Please select a semester.';
+        isValid = false;
+      }
+
+      // Validate date
+      if (!feedbackDate.value) {
+        document.getElementById('dateError').textContent = 'Please select a date.';
+        isValid = false;
+      }
+
+      // Validate section
+      if (!section.value) {
+        document.getElementById('sectionError').textContent = 'Please select a section.';
+        isValid = false;
+      }
+
+      // Validate program
+      if (!program.value) {
+        document.getElementById('programError').textContent = 'Please select a program.';
+        isValid = false;
+      }
+
+      // If all validations pass, redirect to course selection
+      if (isValid) {
+        window.location.href = 'course_select.php';
+      }
+    });
+
+    // Handle next course button click
+    document.getElementById('nextCourseBtn').addEventListener('click', function() {
+      window.location.href = 'course_select.php';
+    });
+  </script>
 </body>
 </html>

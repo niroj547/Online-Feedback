@@ -3,73 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <title>Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-image: url('https://i.imgur.com/VWkgDc3.jpg'); /* Replace with your local image path if needed */
-      background-size: cover;
+      font-family: 'times new roman';
+      background-image: url('image/sat.jpg');
+      background-color: rgb(240, 245, 245); ;
+      background-size: 65%; /* smaller than the full container */
+      background-repeat: no-repeat; /* prevent tiling */
       background-position: center;
-      height: 100vh;
-      color: #d5f2d5;
-    }
-
-    .header {
+      height: 100vh;   
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      background-color: rgba(0, 50, 0, 0.5);
-      padding: 20px;
+      flex-direction: column;
     }
 
-    .header h1 {
-      margin: 0;
-      font-size: 28px;
-    }
-
-    .input-bar {
-      flex-grow: 1;
-      margin: 0 20px;
-      background-color: rgba(144, 238, 144, 0.3);
-      height: 40px;
-      border-radius: 8px;
+    h1 {
+      font-size: 50px;
+      font-weight: 500;
+      position: absolute;
+      top: 20px;
+      left: 300px;
+      letter-spacing: 1px;
     }
 
     .login-btn {
-      background-color: #ddd;
+      background-color: #f4c48a;
+      padding: 12px 30px;
+      border-radius: 25px;
       border: none;
-      border-radius: 8px;
-      padding: 10px 20px;
-      font-weight: bold;
+      font-weight: 500;
+      font-size: 16px;
       cursor: pointer;
+      text-decoration: none;
+      color: black;
+      position: absolute;
+      bottom: 20px;
+      left: 300px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #e0b073;
+      transform: translateY(-2px);
     }
 
     .admin-link {
-      position: absolute;
-      bottom: 10px;
-      right: 10px;
       font-size: 12px;
-      color: #fff;
-      background-color: rgba(0,0,0,0.5);
-      padding: 5px 10px;
-      border-radius: 5px;
-      text-decoration: none;
+      position: absolute;
+      bottom: 20px;
+      right: 300px;
+      color: rgb(0, 0, 0);
+      text-decoration: underline;
+      font-weight: 400;
+      transition: color 0.3s ease;
     }
 
     .admin-link:hover {
-      background-color: rgba(255,255,255,0.2);
+      color: #575450;
     }
   </style>
 </head>
 <body>
-
-  <div class="header">
-    <h1>Feedback</h1>
-    <div class="input-bar"></div>
-    <button class="login-btn">Login</button>
-  </div>
-
-  <a class="admin-link" href="admin_login.html">Admin login</a>
-
+  <h1>Feedback</h1>
+  <a href="student_login.html" class="login-btn">Login</a>
+  <a href="admin_login.html" class="admin-link">Admin Login</a>
 </body>
 </html>
