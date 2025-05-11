@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Feedback</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'times new roman';
+      background-image: url('image/sat.jpg');
+      background-color: rgb(240, 245, 245); ;
+      background-size: 65%; /* smaller than the full container */
+      background-repeat: no-repeat; /* prevent tiling */
+      background-position: center;
+      height: 100vh;   
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 50px;
+      font-weight: 500;
+      position: absolute;
+      top: 20px;
+      left: 300px;
+      letter-spacing: 1px;
+    }
+
+    .login-btn {
+      background-color: #f4c48a;
+      padding: 12px 30px;
+      border-radius: 25px;
+      border: none;
+      font-weight: 500;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      color: black;
+      position: absolute;
+      bottom: 20px;
+      left: 300px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #e0b073;
+      transform: translateY(-2px);
+    }
+
+    .admin-link {
+      font-size: 12px;
+      position: absolute;
+      bottom: 20px;
+      right: 300px;
+      color: rgb(0, 0, 0);
+      text-decoration: underline;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .admin-link:hover {
+      color: #575450;
+    }
+  </style>
+</head>
+<body>
+  <h1>Feedback</h1>
+  <a href="student_login.html" class="login-btn">Login</a>
+  <a href="admin_login.html" class="admin-link">Admin Login</a>
+</body>
+</html>
