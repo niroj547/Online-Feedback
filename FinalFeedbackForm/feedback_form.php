@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 if (!isset($_SESSION['student'])) {
@@ -16,7 +15,15 @@ $name_parts = explode('.', explode('@', $email)[0]);
 $student_name = ucfirst($name_parts[0]) . ' ' . ucfirst($name_parts[1]);
 
 // Fetch student details from DB including last_feedback_time
-$stmt = $conn->prepare("SELECT academic_year, semester, section, program FROM students WHERE email = ? AND status = 'active'");
+$stmt = $conn->prepare("
+    SELECT academic_year,
+           semester,
+           section,
+           program,
+           last_feedback_time
+    FROM students
+    WHERE email = ? AND status = 'active'
+");
 $stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -27,14 +34,14 @@ if (!$student_data) {
     die("Error: Student data not found or account is suspended.");
 }
 
+// Null-coalescing so no warning if it's NULL
+$last_feedback_time = $student_data['last_feedback_time'] ?? null;
+
 // Check if feedback was submitted within last 24 hours
 $can_submit = true;
-$last_feedback_time = $student_data['last_feedback_time'];
-
 if (!empty($last_feedback_time)) {
     $last_time = strtotime($last_feedback_time);
-    $current_time = time();
-    if (($current_time - $last_time) < 86400) { // 24 hours = 86400 seconds
+    if (time() - $last_time < 86400) {
         $can_submit = false;
     }
 }
@@ -69,40 +76,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $can_submit) {
       min-height: 100vh;
       margin: 0;
     }
-
     .form-container {
       background-color: #fff;
       padding: 40px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
       max-width: 600px;
       width: 100%;
     }
-
     .form-container h1 {
       font-size: 28px;
       color: #007b7f;
       text-align: center;
       margin-bottom: 20px;
     }
-
     .form-container p {
       font-size: 14px;
       color: #555;
       text-align: center;
       margin-bottom: 30px;
     }
-
     .form-group label {
       font-weight: bold;
       color: #333;
     }
-
     .form-control {
       border-radius: 8px;
       padding: 10px;
     }
-
     .btn-primary {
       background-color: #007b7f;
       border: none;
@@ -112,11 +113,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $can_submit) {
       cursor: pointer;
       width: 100%;
     }
-
     .btn-primary:hover {
       background-color: #005a5d;
     }
-
     .alert {
       margin-top: 20px;
     }
@@ -127,10 +126,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $can_submit) {
     <h1>Student Feedback Form</h1>
     <p>Fill out the feedback form to help us improve our teaching quality.</p>
 
-    <form method="POST" action="">
+    <form method="POST">
       <div class="form-group mb-3">
         <label for="studentName">Your Name</label>
-        <input type="text" name="studentName" id="studentName" class="form-control" value="<?= htmlspecialchars($student_name) ?>" readonly>
+        <input type="text" id="studentName" class="form-control" value="<?= htmlspecialchars($student_name) ?>" readonly>
       </div>
 
       <div class="form-check mb-3">
@@ -140,27 +139,27 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $can_submit) {
 
       <div class="form-group mb-3">
         <label for="academicYear">Academic Year</label>
-        <input type="text" name="academicYear" id="academicYear" class="form-control" value="<?= htmlspecialchars($student_data['academic_year']) ?>" readonly>
+        <input type="text" id="academicYear" class="form-control" value="<?= htmlspecialchars($student_data['academic_year']) ?>" readonly>
       </div>
 
       <div class="form-group mb-3">
         <label for="semester">Semester</label>
-        <input type="text" name="semester" id="semester" class="form-control" value="<?= htmlspecialchars($student_data['semester']) ?>" readonly>
+        <input type="text" id="semester" class="form-control" value="<?= htmlspecialchars($student_data['semester']) ?>" readonly>
       </div>
 
       <div class="form-group mb-3">
         <label for="section">Section</label>
-        <input type="text" name="section" id="section" class="form-control" value="<?= htmlspecialchars($student_data['section']) ?>" readonly>
+        <input type="text" id="section" class="form-control" value="<?= htmlspecialchars($student_data['section']) ?>" readonly>
       </div>
 
       <div class="form-group mb-3">
         <label for="program">Program</label>
-        <input type="text" name="program" id="program" class="form-control" value="<?= htmlspecialchars($student_data['program']) ?>" readonly>
+        <input type="text" id="program" class="form-control" value="<?= htmlspecialchars($student_data['program']) ?>" readonly>
       </div>
 
       <div class="form-group mb-3">
         <label for="feedbackDate">Date</label>
-        <input type="date" name="feedbackDate" id="feedbackDate" class="form-control" value="<?= date('Y-m-d') ?>" readonly>
+        <input type="date" id="feedbackDate" class="form-control" value="<?= date('Y-m-d') ?>" readonly>
       </div>
 
       <?php if ($can_submit): ?>
@@ -175,4 +174,3 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && $can_submit) {
   </div>
 </body>
 </html>
-
