@@ -1,18 +1,48 @@
 <?php
+session_start();
 include 'db_config.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['add'])) {
-        $name = $_POST['name'];
-        $conn->query("INSERT INTO course (name) VALUES ('$name')");
-    } elseif (isset($_POST['delete'])) {
-        $id = $_POST['id'];
-        $conn->query("DELETE FROM course WHERE id=$id");
+if (!isset($_SESSION['admin'])) {
+    header("Location: admin_login.html");
+    exit();
+}
+
+// Add Course
+if (isset($_POST['add'])) {
+    $name = trim($_POST['name'] ?? '');
+    if (!empty($name)) {
+        $stmt = $conn->prepare("INSERT INTO course (name) VALUES (?)");
+        $stmt->bind_param("s", $name);
+        $stmt->execute();
+        $stmt->close();
     }
 }
 
-$courses = $conn->query("SELECT * FROM course");
+// Delete Course
+if (isset($_POST['delete'])) {
+    $id = intval($_POST['id'] ?? 0);
+    if ($id > 0) {
+        // Check if the course exists
+        $stmt = $conn->prepare("SELECT id FROM course WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $stmt = $conn->prepare("DELETE FROM course WHERE id = ?");
+            $stmt->bind_param("i", $id);
+            $stmt->execute();
+            $stmt->close();
+            
+            // Reset auto-increment
+            $conn->query("ALTER TABLE course AUTO_INCREMENT = 1");
+        }
+    }
+}
+
+$result = $conn->query("SELECT * FROM course");
 ?>
+
 <h2>Manage Courses</h2>
 <form method="post">
   <input type="text" name="name" placeholder="Course name" required>
