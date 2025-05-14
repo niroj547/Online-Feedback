@@ -6,11 +6,19 @@ if (!isset($_SESSION['admin'])) {
 }
 include 'db_config.php';
 
-$result = $conn->query("
+$view_all = isset($_GET['view_all']);
+
+$sql = "
     SELECT f.id, f.student_name, f.lecturer_rating, f.tutor_rating, f.comment, c.name AS course 
     FROM feedback f 
     JOIN course c ON f.course_id = c.id
-");
+";
+
+if (!$view_all) {
+    $sql .= " WHERE f.verified = 1";
+}
+
+$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -22,7 +30,11 @@ $result = $conn->query("
 <body class="bg-white p-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Feedback Records</h2>
-    <a href="logout.php" class="btn btn-danger">Logout</a>
+    <div class="d-flex gap-2">
+      <a href="view_feedback.php" class="btn btn-outline-primary btn-sm">View All Feedback</a>
+      <a href="admin_dashboard.php" class="btn btn-outline-secondary btn-sm">Verified Only</a>
+      <a href="logout.php" class="btn btn-danger btn-sm">Logout</a>
+    </div>
   </div>
 
   <div class="mb-3">
@@ -30,7 +42,8 @@ $result = $conn->query("
     <a href="admin_crud_lecturers.php" class="btn btn-outline-primary btn-sm">Manage Lecturers</a>
     <a href="admin_crud_tutors.php" class="btn btn-outline-primary btn-sm">Manage Tutors</a>
     <a href="admin_crud_students.php" class="btn btn-outline-primary btn-sm">Manage Students</a>
-    <a href="export_feedback_csv.php" class="btn btn-success btn-sm">Export CSV</a>
+    <a href="export_feedback_csv.php" class="btn btn-success btn-sm">Export Feedback CSV</a>
+    <a href="export_analytics_csv.php" class="btn btn-info btn-sm">Download Analytics</a>
   </div>
 
   <table class="table table-striped table-bordered">
