@@ -10,20 +10,28 @@ if (!isset($_SESSION['admin'])) {
 // Add Course
 if (isset($_POST['add'])) {
     $name = $_POST['name'];
-    $stmt = $conn->prepare("INSERT INTO course (name) VALUES (?)");
+    $stmt = $conn->prepare("INSERT INTO course (name, status) VALUES (?, 'active')");
     $stmt->bind_param("s", $name);
     $stmt->execute();
     $stmt->close();
 }
 
-// Delete Course
-if (isset($_POST['delete'])) {
+// Suspend Course
+if (isset($_POST['suspend'])) {
     $id = $_POST['id'];
-    $stmt = $conn->prepare("DELETE FROM course WHERE id=?");
+    $stmt = $conn->prepare("UPDATE course SET status = 'suspended' WHERE id = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
-    $conn->query("ALTER TABLE course AUTO_INCREMENT = 1");
+}
+
+// Activate Course
+if (isset($_POST['activate'])) {
+    $id = $_POST['id'];
+    $stmt = $conn->prepare("UPDATE course SET status = 'active' WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->close();
 }
 
 $result = $conn->query("SELECT * FROM course");
@@ -44,17 +52,36 @@ $result = $conn->query("SELECT * FROM course");
   </form>
 
   <table class="table table-bordered">
-    <thead><tr><th>ID</th><th>Name</th><th>Action</th></tr></thead>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
     <tbody>
       <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
           <td><?= $row['id'] ?></td>
           <td><?= htmlspecialchars($row['name']) ?></td>
           <td>
-            <form method="post" class="d-inline">
-              <input type="hidden" name="id" value="<?= $row['id'] ?>">
-              <button name="delete" class="btn btn-danger btn-sm">Delete</button>
-            </form>
+            <span class="badge <?= $row['status'] === 'active' ? 'bg-success' : 'bg-warning' ?>">
+              <?= ucfirst($row['status']) ?>
+            </span>
+          </td>
+          <td>
+            <?php if ($row['status'] === 'active'): ?>
+              <form method="post" class="d-inline">
+                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                <button name="suspend" class="btn btn-warning btn-sm">Suspend</button>
+              </form>
+            <?php else: ?>
+              <form method="post" class="d-inline">
+                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                <button name="activate" class="btn btn-success btn-sm">Activate</button>
+              </form>
+            <?php endif; ?>
           </td>
         </tr>
       <?php endwhile; ?>

@@ -9,33 +9,57 @@ if (!isset($_SESSION['admin'])) {
 
 // Add Lecturer
 if (isset($_POST['add'])) {
-    $name = trim($_POST['name']);
-    $course_id = intval($_POST['course_id']);
+    $name = trim($_POST['name'] ?? '');
+    $course_id = intval($_POST['course_id'] ?? 0);
+    
     if (!empty($name) && $course_id > 0) {
-        $stmt = $conn->prepare("INSERT INTO lecturer (name, course_id) VALUES (?, ?)");
-        $stmt->bind_param("si", $name, $course_id);
+        // Check if the course exists
+        $stmt = $conn->prepare("SELECT id FROM course WHERE id = ?");
+        $stmt->bind_param("i", $course_id);
         $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $stmt = $conn->prepare("INSERT INTO lecturer (name, course_id, status) VALUES (?, ?, 'active')");
+            $stmt->bind_param("si", $name, $course_id);
+            $stmt->execute();
+        } else {
+            echo "<script>alert('Course not found.');</script>";
+        }
     }
 }
 
 // Update Lecturer
 if (isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $name = trim($_POST['name']);
-    $course_id = intval($_POST['course_id']);
-    if (!empty($name) && $course_id > 0) {
-        $stmt = $conn->prepare("UPDATE lecturer SET name=?, course_id=? WHERE id=?");
+    $id = intval($_POST['id'] ?? 0);
+    $name = trim($_POST['name'] ?? '');
+    $course_id = intval($_POST['course_id'] ?? 0);
+    
+    if (!empty($name) && $course_id > 0 && $id > 0) {
+        $stmt = $conn->prepare("UPDATE lecturer SET name = ?, course_id = ? WHERE id = ?");
         $stmt->bind_param("sii", $name, $course_id, $id);
         $stmt->execute();
     }
 }
 
-// Delete Lecturer
-if (isset($_POST['delete'])) {
-    $id = $_POST['id'];
-    $stmt = $conn->prepare("DELETE FROM lecturer WHERE id=?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
+// Suspend Lecturer
+if (isset($_POST['suspend'])) {
+    $id = intval($_POST['id'] ?? 0);
+    if ($id > 0) {
+        $stmt = $conn->prepare("UPDATE lecturer SET status = 'suspended' WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+    }
+}
+
+// Activate Lecturer
+if (isset($_POST['activate'])) {
+    $id = intval($_POST['id'] ?? 0);
+    if ($id > 0) {
+        $stmt = $conn->prepare("UPDATE lecturer SET status = 'active' WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+    }
 }
 
 $result = $conn->query("SELECT * FROM lecturer");
@@ -63,7 +87,15 @@ $result = $conn->query("SELECT * FROM lecturer");
   </form>
 
   <table class="table table-bordered">
-    <thead><tr><th>ID</th><th>Name</th><th>Course ID</th><th>Actions</th></tr></thead>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Course ID</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
     <tbody>
       <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
@@ -77,8 +109,17 @@ $result = $conn->query("SELECT * FROM lecturer");
               <input type="hidden" name="id" value="<?= $row['id'] ?>">
             </td>
             <td>
+              <span class="badge <?= $row['status'] === 'active' ? 'bg-success' : 'bg-warning' ?>">
+                <?= ucfirst($row['status']) ?>
+              </span>
+            </td>
+            <td>
+              <?php if ($row['status'] === 'active'): ?>
+                <button name="suspend" class="btn btn-warning btn-sm me-2">Suspend</button>
+              <?php else: ?>
+                <button name="activate" class="btn btn-success btn-sm me-2">Activate</button>
+              <?php endif; ?>
               <button name="update" class="btn btn-primary btn-sm me-2">Update</button>
-              <button name="delete" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
             </td>
           </form>
         </tr>
