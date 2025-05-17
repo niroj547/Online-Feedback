@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Course</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('background.jpg'); /* Replace with your chalkboard background */
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .course-container {
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 40px;
+      border-radius: 15px;
+      width: 600px;
+    }
+
+    .course-container h1 {
+      margin-bottom: 10px;
+      font-size: 26px;
+    }
+
+    .course-container p {
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .course-button {
+      display: block;
+      width: 100%;
+      background-color: #d8ccc8;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .course-button:hover {
+      background-color: #c2b2af;
+    }
+  </style>
+</head>
+<body>
+  <div class="course-container">
+    <h1>Student Feedback Form</h1>
+    <p>Fill the feedback form so that we can make our teaching better</p>
+
+    <!-- Simulated dropdown-style buttons -->
+    <form action="rating_form.html" method="post">
+      <button class="course-button" name="course" value="Collaborative Development">Collaborative Development</button>
+      <button class="course-button" name="course" value="Human-Computer Interaction">Human-Computer Interaction</button>
+      <button class="course-button" name="course" value="Distributed and Cloud Systems Programming">Distributed and Cloud Systems Programming</button>
+    </form>
+  </div>
+</body>
+</html>
