@@ -31,11 +31,10 @@
     .left-panel {
       flex: 1;
       background-image: url('image/logo.jpg');
-      background-size: 30%; /* smaller than the full container */
-      background-repeat: no-repeat; /* prevent tiling */
+      background-size: 30%;
+      background-repeat: no-repeat;
       background-position: center;
       background-color: #fff;
-      margin-bottom: 30px;;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -45,7 +44,7 @@
 
     .left-panel h2 {
       font-size: 30px;
-      margin-top: 230px;;
+      margin-top: 230px;
       font-weight: bold;
       color: #000000;
     }
@@ -118,7 +117,7 @@
       <h2>Welcome</h2>
       <p>To provide feedback, please log in.</p>
       <form action="student_login_check.php" method="post">
-        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
         <input type="password" name="password" placeholder="Password" required>
         <button class="login-button" type="submit">Login</button>
         <a href="#">Forgot password?</a>
@@ -128,3 +127,4 @@
 
 </body>
 </html>
+ try this
