@@ -2,7 +2,7 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3307
+-- Host: localhost:3306
 -- Generation Time: Apr 07, 2025 at 07:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
@@ -180,7 +180,25 @@ INSERT INTO `students` (`id`, `full_name`, `email`, `password`, `student_id`, `a
 (27, 'SWEEKRITI DIWAKAR', 'sweekriti.diwakar@l5cg22.edu', 'student123', 'L5CG22-27', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
 (28, 'SWETA THAPA MAGAR', 'sweta.thapa@l5cg22.edu', 'student123', 'L5CG22-28', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
 (29, 'UGESH KC', 'ugesh.kc@l5cg22.edu', 'student123', 'L5CG22-29', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
-(30, 'Alen', 'alen.kn@l5cg22.edu', 'student123', 'L5CG22-30', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS');
+(30, 'Alen', 'alen.kn@l5cg22.edu', 'student123', 'L5CG22-30', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(31, 'Sara', 'sara.jk@l5cg22.edu', 'student123', 'L5CG22-31', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(32, 'Ravi', 'ravi.mn@l5cg22.edu', 'student123', 'L5CG22-32', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(33, 'Mei', 'mei.li@l5cg22.edu', 'student123', 'L5CG22-33', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(34, 'James', 'james.tn@l5cg22.edu', 'student123', 'L5CG22-34', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(35, 'Aisha', 'aisha.ka@l5cg22.edu', 'student123', 'L5CG22-35', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(36, 'Liam', 'liam.ev@l5cg22.edu', 'student123', 'L5CG22-36', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(37, 'Noah', 'noah.bl@l5cg22.edu', 'student123', 'L5CG22-37', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(38, 'Emma', 'emma.rs@l5cg22.edu', 'student123', 'L5CG22-38', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(39, 'Olivia', 'olivia.hm@l5cg22.edu', 'student123', 'L5CG22-39', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(40, 'Ethan', 'ethan.pd@l5cg22.edu', 'student123', 'L5CG22-40', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(41, 'Ava', 'ava.ml@l5cg22.edu', 'student123', 'L5CG22-41', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(42, 'Mia', 'mia.kt@l5cg22.edu', 'student123', 'L5CG22-42', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(43, 'Lucas', 'lucas.jw@l5cg22.edu', 'student123', 'L5CG22-43', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(44, 'Sophia', 'sophia.cv@l5cg22.edu', 'student123', 'L5CG22-44', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS'),
+(45, 'Zayn', 'zayn.hl@l5cg22.edu', 'student123', 'L5CG22-45', 'Year 2', '4th', 'L5CG22', 'BSc(Hons)CS');
+
+
+
 
 -- --------------------------------------------------------
 
