@@ -16,6 +16,7 @@ if (isset($_POST['add'])) {
     $stmt->close();
 }
 
+
 // Delete Course
 if (isset($_POST['delete'])) {
     $id = $_POST['id'];
@@ -39,11 +40,9 @@ $result = $conn->query("SELECT * FROM course");
       padding: 40px;
       background-color: #f8f9fa;
     }
-
     h2 {
       margin-bottom: 20px;
     }
-
     .form-inline {
       display: flex;
       gap: 10px;
@@ -92,6 +91,7 @@ $result = $conn->query("SELECT * FROM course");
       color: white;
     }
   </style>
+
 </head>
 <body>
   <h2>Manage Courses</h2>
@@ -102,6 +102,7 @@ $result = $conn->query("SELECT * FROM course");
   </form>
 
   <table class="table table-bordered text-center bg-white">
+    
     <thead class="table-light">
       <tr>
         <th style="width: 10%;">ID</th>
@@ -109,6 +110,7 @@ $result = $conn->query("SELECT * FROM course");
         <th style="width: 20%;">Action</th>
       </tr>
     </thead>
+
     <tbody>
       <?php while ($row = $result->fetch_assoc()): ?>
         <tr>
