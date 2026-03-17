@@ -1,25 +1,14 @@
 <?php
-session_start();
-include 'db_config.php';
-
-if (!isset($_SESSION['admin'])) {
-    header("Location: admin_login.html");
-    exit();
-}
+require_once 'includes/auth_admin.php';
+require_once 'includes/helpers.php';
 
 // Add Lecturer
 if (isset($_POST['add'])) {
     $name = trim($_POST['name'] ?? '');
     $course_id = intval($_POST['course_id'] ?? 0);
-    
+
     if (!empty($name) && $course_id > 0) {
-        // Check if the course exists
-        $stmt = $conn->prepare("SELECT id FROM course WHERE id = ?");
-        $stmt->bind_param("i", $course_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        if ($result->num_rows > 0) {
+        if (course_exists($conn, $course_id)) {
             $stmt = $conn->prepare("INSERT INTO lecturer (name, course_id, status) VALUES (?, ?, 'active')");
             $stmt->bind_param("si", $name, $course_id);
             $stmt->execute();
@@ -34,7 +23,7 @@ if (isset($_POST['update'])) {
     $id = intval($_POST['id'] ?? 0);
     $name = trim($_POST['name'] ?? '');
     $course_id = intval($_POST['course_id'] ?? 0);
-    
+
     if (!empty($name) && $course_id > 0 && $id > 0) {
         $stmt = $conn->prepare("UPDATE lecturer SET name = ?, course_id = ? WHERE id = ?");
         $stmt->bind_param("sii", $name, $course_id, $id);
@@ -42,24 +31,12 @@ if (isset($_POST['update'])) {
     }
 }
 
-// Suspend Lecturer
+// Suspend / Activate Lecturer
 if (isset($_POST['suspend'])) {
-    $id = intval($_POST['id'] ?? 0);
-    if ($id > 0) {
-        $stmt = $conn->prepare("UPDATE lecturer SET status = 'suspended' WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-    }
+    update_entity_status($conn, 'lecturer', intval($_POST['id'] ?? 0), 'suspended');
 }
-
-// Activate Lecturer
 if (isset($_POST['activate'])) {
-    $id = intval($_POST['id'] ?? 0);
-    if ($id > 0) {
-        $stmt = $conn->prepare("UPDATE lecturer SET status = 'active' WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-    }
+    update_entity_status($conn, 'lecturer', intval($_POST['id'] ?? 0), 'active');
 }
 
 $result = $conn->query("SELECT * FROM lecturer");
@@ -108,17 +85,9 @@ $result = $conn->query("SELECT * FROM lecturer");
               <input type="number" name="course_id" value="<?= $row['course_id'] ?>" class="form-control" required>
               <input type="hidden" name="id" value="<?= $row['id'] ?>">
             </td>
+            <td><?= status_badge($row['status']) ?></td>
             <td>
-              <span class="badge <?= $row['status'] === 'active' ? 'bg-success' : 'bg-warning' ?>">
-                <?= ucfirst($row['status']) ?>
-              </span>
-            </td>
-            <td>
-              <?php if ($row['status'] === 'active'): ?>
-                <button name="suspend" class="btn btn-warning btn-sm me-2">Suspend</button>
-              <?php else: ?>
-                <button name="activate" class="btn btn-success btn-sm me-2">Activate</button>
-              <?php endif; ?>
+              <?= status_action_button($row['status']) ?>
               <button name="update" class="btn btn-primary btn-sm me-2">Update</button>
             </td>
           </form>

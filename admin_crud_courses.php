@@ -1,11 +1,6 @@
 <?php
-session_start();
-include 'db_config.php';
-
-if (!isset($_SESSION['admin'])) {
-    header("Location: admin_login.html");
-    exit();
-}
+require_once 'includes/auth_admin.php';
+require_once 'includes/helpers.php';
 
 // Add Course
 if (isset($_POST['add'])) {
@@ -16,22 +11,12 @@ if (isset($_POST['add'])) {
     $stmt->close();
 }
 
-// Suspend Course
+// Suspend / Activate Course
 if (isset($_POST['suspend'])) {
-    $id = $_POST['id'];
-    $stmt = $conn->prepare("UPDATE course SET status = 'suspended' WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
+    update_entity_status($conn, 'course', intval($_POST['id'] ?? 0), 'suspended');
 }
-
-// Activate Course
 if (isset($_POST['activate'])) {
-    $id = $_POST['id'];
-    $stmt = $conn->prepare("UPDATE course SET status = 'active' WHERE id = ?");
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $stmt->close();
+    update_entity_status($conn, 'course', intval($_POST['id'] ?? 0), 'active');
 }
 
 $result = $conn->query("SELECT * FROM course");
@@ -65,24 +50,8 @@ $result = $conn->query("SELECT * FROM course");
         <tr>
           <td><?= $row['id'] ?></td>
           <td><?= htmlspecialchars($row['name']) ?></td>
-          <td>
-            <span class="badge <?= $row['status'] === 'active' ? 'bg-success' : 'bg-warning' ?>">
-              <?= ucfirst($row['status']) ?>
-            </span>
-          </td>
-          <td>
-            <?php if ($row['status'] === 'active'): ?>
-              <form method="post" class="d-inline">
-                <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                <button name="suspend" class="btn btn-warning btn-sm">Suspend</button>
-              </form>
-            <?php else: ?>
-              <form method="post" class="d-inline">
-                <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                <button name="activate" class="btn btn-success btn-sm">Activate</button>
-              </form>
-            <?php endif; ?>
-          </td>
+          <td><?= status_badge($row['status']) ?></td>
+          <td><?= status_action_form((int)$row['id'], $row['status']) ?></td>
         </tr>
       <?php endwhile; ?>
     </tbody>

@@ -204,6 +204,21 @@ INSERT INTO `tutor` (`id`, `name`, `course_id`) VALUES
 (3, 'Anupa Maharjan', 3),
 (4, 'suman shrestha', 4);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedule`
+--
+
+CREATE TABLE `schedule` (
+  `id` int(11) NOT NULL,
+  `entity_type` enum('lecturer','tutor') NOT NULL,
+  `entity_id` int(11) NOT NULL,
+  `day_of_week` enum('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday') NOT NULL,
+  `start_time` time NOT NULL,
+  `end_time` time NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -250,6 +265,14 @@ ALTER TABLE `tutor`
   ADD KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `schedule`
+--
+ALTER TABLE `schedule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `entity_type_id` (`entity_type`, `entity_id`),
+  ADD KEY `entity_day` (`entity_type`, `entity_id`, `day_of_week`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -288,6 +311,12 @@ ALTER TABLE `students`
 --
 ALTER TABLE `tutor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `schedule`
+--
+ALTER TABLE `schedule`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

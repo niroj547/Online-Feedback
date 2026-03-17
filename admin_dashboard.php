@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: admin_login.html");
-    exit();
-}
-include 'db_config.php';
+require_once 'includes/auth_admin.php';
 
 $view_all = isset($_GET['view_all']);
 
@@ -42,6 +37,7 @@ $result = $conn->query($sql);
     <a href="admin_crud_lecturers.php" class="btn btn-outline-primary btn-sm">Manage Lecturers</a>
     <a href="admin_crud_tutors.php" class="btn btn-outline-primary btn-sm">Manage Tutors</a>
     <a href="admin_crud_students.php" class="btn btn-outline-primary btn-sm">Manage Students</a>
+    <a href="admin_schedule.php" class="btn btn-outline-primary btn-sm">Manage Schedules</a>
     <a href="export_feedback_csv.php" class="btn btn-success btn-sm">Export Feedback CSV</a>
     <a href="export_analytics_csv.php" class="btn btn-info btn-sm">Download Analytics</a>
   </div>
