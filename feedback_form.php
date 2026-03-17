@@ -1,12 +1,6 @@
 
 <?php
-session_start();
-if (!isset($_SESSION['student'])) {
-    header("Location: student_login.html");
-    exit();
-}
-
-include 'db_config.php';
+require_once 'includes/auth_student.php';
 
 // Get email from session
 $email = $_SESSION['student'];

@@ -1,11 +1,5 @@
 <?php
-include 'db_config.php';
-session_start();
-
-if (!isset($_SESSION['student'])) {
-    header("Location: student_login.html");
-    exit();
-}
+require_once 'includes/auth_student.php';
 
 // Initialize variables
 $showSuccessModal = false; // Ensure this variable is always defined

@@ -1,11 +1,6 @@
 <?php
-session_start();
-include 'db_config.php';
-
-if (!isset($_SESSION['admin'])) {
-    header("Location: admin_login.html");
-    exit();
-}
+require_once 'includes/auth_admin.php';
+require_once 'includes/helpers.php';
 
 // Insert Student
 if (isset($_POST['add'])) {
@@ -17,14 +12,14 @@ if (isset($_POST['add'])) {
     $sem = $_POST['semester'] ?? '';
     $section = $_POST['section'] ?? '';
     $program = $_POST['program'] ?? '';
-    
+
     if (!empty($name) && !empty($email) && !empty($password) && !empty($student_id)) {
         // Check if email already exists
         $stmt = $conn->prepare("SELECT id FROM students WHERE email = ?");
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        
+
         if ($result->num_rows == 0) {
             $stmt = $conn->prepare("INSERT INTO students (full_name, email, password, student_id, academic_year, semester, section, program, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')");
             $stmt->bind_param("ssssssss", $name, $email, $password, $student_id, $year, $sem, $section, $program);
@@ -35,24 +30,12 @@ if (isset($_POST['add'])) {
     }
 }
 
-// Suspend Student
+// Suspend / Activate Student
 if (isset($_POST['suspend'])) {
-    $id = intval($_POST['id'] ?? 0);
-    if ($id > 0) {
-        $stmt = $conn->prepare("UPDATE students SET status = 'suspended' WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-    }
+    update_entity_status($conn, 'students', intval($_POST['id'] ?? 0), 'suspended');
 }
-
-// Activate Student
 if (isset($_POST['activate'])) {
-    $id = intval($_POST['id'] ?? 0);
-    if ($id > 0) {
-        $stmt = $conn->prepare("UPDATE students SET status = 'active' WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-    }
+    update_entity_status($conn, 'students', intval($_POST['id'] ?? 0), 'active');
 }
 
 $students = $conn->query("SELECT * FROM students ORDER BY id DESC");
@@ -127,24 +110,8 @@ $students = $conn->query("SELECT * FROM students ORDER BY id DESC");
               <td><?= $row['semester'] ?></td>
               <td><?= $row['section'] ?></td>
               <td><?= $row['program'] ?></td>
-              <td>
-                <span class="badge <?= $row['status'] === 'active' ? 'bg-success' : 'bg-warning' ?>">
-                  <?= ucfirst($row['status']) ?>
-                </span>
-              </td>
-              <td>
-                <?php if ($row['status'] === 'active'): ?>
-                  <form method="post" class="d-inline">
-                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                    <button name="suspend" class="btn btn-warning btn-sm">Suspend</button>
-                  </form>
-                <?php else: ?>
-                  <form method="post" class="d-inline">
-                    <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                    <button name="activate" class="btn btn-success btn-sm">Activate</button>
-                  </form>
-                <?php endif; ?>
-              </td>
+              <td><?= status_badge($row['status']) ?></td>
+              <td><?= status_action_form((int)$row['id'], $row['status']) ?></td>
             </tr>
           <?php endwhile; ?>
         </tbody>

@@ -1,10 +1,5 @@
 <?php
-session_start();
-if (!isset($_SESSION['admin'])) {
-    header("Location: admin_login.html");
-    exit();
-}
-include 'db_config.php';
+require_once 'includes/auth_admin.php';
 
 $view_all = isset($_GET['view_all']);
 
